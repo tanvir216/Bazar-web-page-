@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import SocialButtons from "@/components/SocialButtons";
+import PasswordInput from "@/components/PasswordInput";
 
 function SignInForm() {
   const router = useRouter();
@@ -15,12 +16,14 @@ function SignInForm() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (params.get("protected")) toast.error("এই পেজ দেখতে আগে সাইন ইন করুন", { id: "protected" });
+    if (params.get("protected"))
+      toast.error("এই পেজ দেখতে আগে সাইন ইন করুন", { id: "protected" });
   }, [params]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim() || !password) return toast.error("ইমেইল ও পাসওয়ার্ড দিন");
+    if (!email.trim() || !password)
+      return toast.error("ইমেইল ও পাসওয়ার্ড দিন");
     setBusy(true);
     const { error } = await authClient.signIn.email({ email, password });
     setBusy(false);
@@ -37,20 +40,40 @@ function SignInForm() {
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <label className="form-control">
           <span className="label-text mb-1">ইমেইল</span>
-          <input type="email" className="input input-bordered" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+          <input
+            type="email"
+            className="input input-bordered"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+          />
         </label>
         <label className="form-control">
           <span className="label-text mb-1">পাসওয়ার্ড</span>
-          <input type="password" className="input input-bordered" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
+          <PasswordInput
+            value={password}
+            onChange={setPassword}
+            autoComplete="current-password"
+          />
         </label>
         <button className="btn btn-primary w-full" disabled={busy}>
-          {busy ? <span className="loading loading-spinner loading-sm" /> : "সাইন ইন"}
+          {busy ? (
+            <span className="loading loading-spinner loading-sm" />
+          ) : (
+            "সাইন ইন"
+          )}
         </button>
       </form>
       <div className="divider text-sm">অথবা</div>
       <SocialButtons callbackURL={callbackUrl} />
       <p className="mt-6 text-center text-sm">
-        অ্যাকাউন্ট নেই? <Link href="/signup" className="font-semibold text-leaf hover:underline">সাইন আপ করুন</Link>
+        অ্যাকাউন্ট নেই?{" "}
+        <Link
+          href="/signup"
+          className="font-semibold text-leaf hover:underline"
+        >
+          সাইন আপ করুন
+        </Link>
       </p>
     </div>
   );
