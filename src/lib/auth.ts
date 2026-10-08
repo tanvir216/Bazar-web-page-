@@ -2,16 +2,13 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 
-const g = globalThis as unknown as {
-  _mongo?: MongoClient;
-  _auth?: ReturnType<typeof createAuth>;
-};
-
-function createAuth() {
+// Cloudflare Workers e ek request er connection onno request e reuse kora jay na,
+// tai prottek request e notun client/auth toiri hoy (kono global cache nai).
+export function getAuth() {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("MONGODB_URI missing");
 
-  const client = g._mongo ?? (g._mongo = new MongoClient(uri));
+  const client = new MongoClient(uri);
   const siteUrl = process.env.BETTER_AUTH_URL || "http://localhost:3000";
 
   return betterAuth({
@@ -37,8 +34,4 @@ function createAuth() {
       },
     },
   });
-}
-
-export function getAuth() {
-  return g._auth ?? (g._auth = createAuth());
 }
