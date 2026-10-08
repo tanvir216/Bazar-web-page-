@@ -10,11 +10,16 @@ export default function ProductCard({ p }: { p: Product }) {
       className="group block rounded-xl border border-line bg-white p-4 transition hover:border-leaf hover:shadow-md"
     >
       <div className="flex items-start gap-3">
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-paper text-3xl" aria-hidden>
+        <span
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-paper text-3xl"
+          aria-hidden
+        >
           {p.emoji}
         </span>
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-semibold group-hover:text-leaf">{p.name}</h3>
+          <h3 className="truncate text-lg font-semibold group-hover:text-leaf">
+            {p.name}
+          </h3>
           <p className="text-sm text-ink/60">{p.unit}</p>
         </div>
       </div>

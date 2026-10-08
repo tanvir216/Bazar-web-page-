@@ -12,7 +12,10 @@ export function num(v: unknown): number {
 }
 
 const fmt = (min: number, max: number) =>
-  new Intl.NumberFormat("bn-BD", { minimumFractionDigits: min, maximumFractionDigits: max });
+  new Intl.NumberFormat("bn-BD", {
+    minimumFractionDigits: min,
+    maximumFractionDigits: max,
+  });
 
 export const toBn = (n: number, max = 2) => fmt(0, max).format(n);
 export const formatPrice = (n: number) => `${toBn(n)} টাকা`;

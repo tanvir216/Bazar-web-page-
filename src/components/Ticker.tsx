@@ -11,10 +11,14 @@ export default function Ticker() {
   const row = (suffix: string) =>
     items.map((p) => {
       const c = Math.round(p.change * 10) / 10;
-      const color = c > 0 ? "text-green-400" : c < 0 ? "text-red-400" : "text-gray-400";
+      const color =
+        c > 0 ? "text-green-400" : c < 0 ? "text-red-400" : "text-gray-400";
       const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "—";
       return (
-        <span key={p.id + suffix} className="inline-flex items-center gap-1.5 px-5 text-sm text-white">
+        <span
+          key={p.id + suffix}
+          className="inline-flex items-center gap-1.5 px-5 text-sm text-white"
+        >
           <span aria-hidden>{p.emoji}</span>
           <span className="font-medium">{p.name}</span>
           <span className="text-white/80">
@@ -28,7 +32,10 @@ export default function Ticker() {
       );
     });
   return (
-    <div className="marquee overflow-hidden border-t border-line bg-ink py-1.5" aria-label="আজকের দামের তালিকা">
+    <div
+      className="marquee overflow-hidden border-t border-line bg-ink py-1.5"
+      aria-label="আজকের দামের তালিকা"
+    >
       <div className="marquee-track flex whitespace-nowrap">
         {row("a")}
         {row("b")}

@@ -2,8 +2,10 @@
 import { useCallback, useEffect, useState } from "react";
 
 const BASES = [
-  process.env.NEXT_PUBLIC_API_BASE || "https://api.api-store.workers.dev/api/bazardor",
-  process.env.NEXT_PUBLIC_API_BASE_ALT || "https://api.abcz.workers.dev/api/bazardor",
+  process.env.NEXT_PUBLIC_API_BASE ||
+    "https://api.api-store.workers.dev/api/bazardor",
+  process.env.NEXT_PUBLIC_API_BASE_ALT ||
+    "https://api.abcz.workers.dev/api/bazardor",
 ];
 
 const cache = new Map<string, Promise<unknown>>();

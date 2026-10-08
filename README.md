@@ -43,13 +43,13 @@ Open http://localhost:3000.
 
 ### Environment variables
 
-| Name | Purpose |
-| --- | --- |
-| `MONGODB_URI` | MongoDB connection string (Atlas) |
-| `BETTER_AUTH_SECRET` | Random secret (`openssl rand -base64 32`) |
-| `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL` | Site URL |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth |
-| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth |
+| Name                                        | Purpose                                   |
+| ------------------------------------------- | ----------------------------------------- |
+| `MONGODB_URI`                               | MongoDB connection string (Atlas)         |
+| `BETTER_AUTH_SECRET`                        | Random secret (`openssl rand -base64 32`) |
+| `BETTER_AUTH_URL` / `NEXT_PUBLIC_APP_URL`   | Site URL                                  |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth                              |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth                              |
 
 OAuth callback URLs: `<SITE_URL>/api/auth/callback/google` and `<SITE_URL>/api/auth/callback/github`.
 
