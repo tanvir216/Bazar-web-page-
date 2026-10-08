@@ -6,11 +6,12 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import SocialButtons from "@/components/SocialButtons";
 import PasswordInput from "@/components/PasswordInput";
+import { safeCallback } from "@/lib/callback";
 
 function SignInForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl") || "/";
+  const callbackUrl = safeCallback(params.get("callbackUrl"));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -68,8 +69,8 @@ function SignInForm() {
       <SocialButtons callbackURL={callbackUrl} />
       <p className="mt-6 text-center text-sm">
         অ্যাকাউন্ট নেই?{" "}
-        <Link
-          href="/signup"
+             <Link
+          href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
           className="font-semibold text-leaf hover:underline"
         >
           সাইন আপ করুন
