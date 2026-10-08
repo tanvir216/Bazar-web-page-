@@ -2,13 +2,13 @@ import { formatPct } from "@/lib/bn";
 
 export default function ChangeBadge({ change }: { change: number }) {
   const rounded = Math.round(change * 10) / 10;
-  // কালো-সাদায়: দাম বাড়লে ভরাট কালো ব্যাজ, কমলে ফাঁপা (শুধু বর্ডার), অপরিবর্তিত হলে ধূসর
+  // দাম বাড়লে লাল, কমলে সবুজ, অপরিবর্তিত হলে ধূসর
   const cls =
     rounded > 0
-      ? "border border-pata bg-pata text-white"
+      ? "bg-rise/10 text-rise"
       : rounded < 0
-        ? "border border-pata bg-white text-pata"
-        : "border border-transparent bg-ink/5 text-ink/55";
+        ? "bg-fall/10 text-fall"
+        : "bg-ink/5 text-ink/55";
   const label =
     rounded > 0
       ? `▲ ${formatPct(rounded)}%`

@@ -13,8 +13,8 @@ const config: Config = {
         down: "#0A0A0A",
         haldi: "#FFFFFF",
         pata: "#0A0A0A",
-        rise: "#0A0A0A",
-        fall: "#9A9A9A",
+                rise: "#C4301C",
+        fall: "#1A7B45",
       },
       fontFamily: {
         sans: ["var(--font-hind)", "system-ui", "sans-serif"],
