@@ -4,9 +4,9 @@ export default function ChangeBadge({ change }: { change: number }) {
   const rounded = Math.round(change * 10) / 10;
   const cls =
     rounded > 0
-      ? "bg-green-100 text-up"
+      ? "bg-red-100 text-down"
       : rounded < 0
-        ? "bg-red-100 text-down"
+        ? "bg-green-100 text-up"
         : "bg-gray-100 text-gray-500";
   const label =
     rounded > 0

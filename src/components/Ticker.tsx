@@ -12,7 +12,7 @@ export default function Ticker() {
     items.map((p) => {
       const c = Math.round(p.change * 10) / 10;
       const color =
-        c > 0 ? "text-green-400" : c < 0 ? "text-red-400" : "text-gray-400";
+        c > 0 ? "text-red-400" : c < 0 ? "text-green-400" : "text-gray-400";
       const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "—";
       return (
         <span
