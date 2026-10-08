@@ -18,7 +18,7 @@ export function getAuth() {
       Boolean,
     ) as string[],
     database: mongodbAdapter(client.db()),
-    emailAndPassword: { enabled: true, autoSignIn: false },
+   emailAndPassword: { enabled: true, autoSignIn: true },
     account: {
       accountLinking: { enabled: true, trustedProviders: ["google"] },
     },
