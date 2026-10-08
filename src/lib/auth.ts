@@ -32,7 +32,7 @@ export function getAuth() {
 
     emailAndPassword: {
       enabled: true,
-      autoSignIn: true,
+      autoSignIn: false,
     },
 
     account: {

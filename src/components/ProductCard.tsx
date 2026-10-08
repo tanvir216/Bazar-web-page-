@@ -26,14 +26,14 @@ export default function ProductCard({ p }: { p: Product }) {
           <p className="text-sm text-ink/60">{p.unit}</p>
         </div>
       </div>
-      <div className="mt-4 flex items-end justify-between gap-2 border-t border-dashed border-line pt-3">
+      <div>
+        <p className="text-xs text-ink/55">আজকের দাম</p>
         <p className="font-display text-3xl font-bold leading-none text-pata">
           {toBn(p.price)}
           <span className="ml-1 font-sans text-sm font-medium text-ink/60">
             টাকা
           </span>
         </p>
-        <ChangeBadge change={p.change} />
       </div>
     </Link>
   );

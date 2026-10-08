@@ -6,8 +6,8 @@ export default function Footer() {
           <span className="font-display text-xl font-bold text-haldi">
             বাজার দর
           </span>
-          <span className="ml-3 text-white/75">
-            প্রয়োজনীয় পণ্যের দাম এক নজরে।
+          <span className="ml-2 text-white/75">
+            — প্রয়োজনীয় পণ্যের দাম এক নজরে।
           </span>
         </p>
         <p className="text-white/60">

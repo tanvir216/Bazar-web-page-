@@ -95,13 +95,13 @@ export default function Home() {
             <div className="grid gap-8 pt-12 md:grid-cols-2">
               <Movers
                 tone="rise"
-                title="দাম বেড়েছে"
+                title="আজ দাম বেড়েছে ▲"
                 subtitle="গতকালের চেয়ে সবচেয়ে বেশি বেড়েছে যেগুলোর"
                 items={risers}
               />
               <Movers
                 tone="fall"
-                title="দাম কমেছে"
+                title="আজ দাম কমেছে ▼"
                 subtitle="গতকালের চেয়ে সবচেয়ে বেশি কমেছে যেগুলোর"
                 items={fallers}
               />
@@ -113,7 +113,7 @@ export default function Home() {
                   সব পণ্য
                 </h2>
                 <p className="text-sm text-ink/65">
-                  {toBn(data.length)}টি পণ্যের আজকের দাম
+                  সব ক্যাটাগরির পণ্যের আজকের দাম
                 </p>
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

@@ -13,8 +13,8 @@ const config: Config = {
         down: "#0A0A0A",
         haldi: "#FFFFFF",
         pata: "#0A0A0A",
-                rise: "#C4301C",
-        fall: "#1A7B45",
+        rise: "#1A7B45",
+        fall: "#C4301C",
       },
       fontFamily: {
         sans: ["var(--font-hind)", "system-ui", "sans-serif"],
@@ -33,7 +33,7 @@ const config: Config = {
     themes: [
       {
         bazar: {
-                   primary: "#0A0A0A",
+          primary: "#0A0A0A",
           "primary-content": "#ffffff",
           secondary: "#FFFFFF",
           accent: "#0A0A0A",

@@ -8,7 +8,7 @@ export default function Hero() {
           <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-balance text-pata sm:text-5xl lg:text-6xl">
             আজকের বাজারে কোনটার কত দাম?
           </h1>
-          <p className="mt-5 max-w-md text-base text-pata/80 sm:text-lg">
+          <p className="mt-2 max-w-md text-base text-pata/80 sm:text-lg">
             চাল, ডাল, তেল, সবজি, মাছ আর মাংস — গতকালের চেয়ে কোনটা বাড়ল, কোনটা
             কমল, এক নজরে দেখুন।
           </p>
