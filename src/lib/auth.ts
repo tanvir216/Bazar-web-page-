@@ -2,22 +2,43 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 
-export function getAuth() {
-  const client = new MongoClient(process.env.MONGODB_URI as string);
-  const db = client.db();
+const g = globalThis as unknown as {
+  _mongo?: MongoClient;
+  _auth?: ReturnType<typeof createAuth>;
+};
+
+function createAuth() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error("MONGODB_URI missing");
+
+  const client = g._mongo ?? (g._mongo = new MongoClient(uri));
+  const siteUrl = process.env.BETTER_AUTH_URL || "http://localhost:3000";
 
   return betterAuth({
-    database: mongodbAdapter(db),
+    baseURL: siteUrl,
+    secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins: [siteUrl, process.env.NEXT_PUBLIC_APP_URL].filter(
+      Boolean,
+    ) as string[],
+    database: mongodbAdapter(client.db()),
     emailAndPassword: { enabled: true, autoSignIn: false },
+    account: {
+      accountLinking: { enabled: true, trustedProviders: ["google"] },
+    },
     socialProviders: {
       google: {
-        clientId: process.env.GOOGLE_CLIENT_ID || "",
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+        clientId: process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        prompt: "select_account",
       },
       github: {
-        clientId: process.env.GITHUB_CLIENT_ID || "",
-        clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+        clientId: process.env.GITHUB_CLIENT_ID!,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET!,
       },
     },
   });
+}
+
+export function getAuth() {
+  return g._auth ?? (g._auth = createAuth());
 }
