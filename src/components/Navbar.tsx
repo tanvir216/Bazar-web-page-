@@ -34,7 +34,7 @@ export default function Navbar() {
     <nav className="mx-auto max-w-6xl px-4">
       <div className="flex items-center justify-between gap-3 py-3">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid h-10 w-10 place-items-center rounded-lg bg-haldi">
+                   <span className="grid h-10 w-10 place-items-center rounded-lg border-2 border-pata bg-white">
             <Image
               src="/logo-icon.png"
               alt=""

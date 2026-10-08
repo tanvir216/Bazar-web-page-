@@ -9,7 +9,7 @@ export default function ProductCard({ p }: { p: Product }) {
   return (
     <Link
       href={`/product/${encodeURIComponent(p.slug)}`}
-      className="group relative block overflow-hidden rounded-xl border border-line bg-white p-4 pt-5 transition hover:border-pata hover:shadow-[4px_4px_0_#123B28]"
+      className="group relative block overflow-hidden rounded-xl border border-line bg-white p-4 pt-5 transition hover:border-pata hover:shadow-[4px_4px_0_#0A0A0A]"
     >
       <span className={`absolute inset-x-0 top-0 h-1 ${bar}`} aria-hidden />
       <div className="flex items-center gap-3">

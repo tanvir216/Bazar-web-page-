@@ -6,11 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: #f3f5ee;
-  color: #12261c;
+  background: #ffffff;
+  color: #0a0a0a;
 }
 :focus-visible {
-  outline: 2px solid #123b28;
+  outline: 2px solid #0a0a0a;
   outline-offset: 2px;
 }
 
