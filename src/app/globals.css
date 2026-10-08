@@ -2,22 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
-body { background: #F6F8F3; color: #12261C; }
-:focus-visible { outline: 2px solid #166534; outline-offset: 2px; }
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #f3f5ee;
+  color: #12261c;
+}
+:focus-visible {
+  outline: 2px solid #123b28;
+  outline-offset: 2px;
+}
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.marquee-track { animation: marquee 60s linear infinite; width: max-content; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track {
+  animation: marquee 60s linear infinite;
+  width: max-content;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
 
-.no-scrollbar { scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* হিরো বোর্ডের সারিগুলো একবার করে ধাপে ধাপে ভেসে ওঠে */
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.row-in {
+  animation: row-in 0.45s ease-out both;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .marquee-track { animation: none; }
-  .marquee { overflow-x: auto; }
+  .row-in {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
 }

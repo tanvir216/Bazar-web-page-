@@ -16,9 +16,9 @@ export default function Navbar() {
   const [date, setDate] = useState("");
   useEffect(() => setDate(bnDate()), []);
 
-  const linkCls = (active: boolean) =>
-    `shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition ${
-      active ? "bg-leaf text-white" : "text-ink hover:bg-paper"
+    const linkCls = (active: boolean) =>
+    `shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+      active ? "border-pata bg-pata text-white" : "border-line bg-white text-ink hover:border-pata"
     }`;
 
   async function handleSignOut() {
@@ -34,16 +34,20 @@ export default function Navbar() {
     <nav className="mx-auto max-w-6xl px-4">
       <div className="flex items-center justify-between gap-3 py-3">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image
-            src="/logo-icon.png"
-            alt=""
-            width={36}
-            height={36}
-            className="h-9 w-9"
-            priority
-          />
+          <span className="grid h-10 w-10 place-items-center rounded-lg bg-haldi">
+            <Image
+              src="/logo-icon.png"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5"
+              priority
+            />
+          </span>
           <span className="leading-tight">
-            <span className="block text-xl font-bold text-leaf">বাজার দর</span>
+            <span className="block font-display text-2xl font-extrabold text-pata">
+              বাজার দর
+            </span>
             <span className="block min-h-4 text-xs text-ink/60">{date}</span>
           </span>
         </Link>
@@ -66,7 +70,7 @@ export default function Navbar() {
                     className="h-7 w-7 rounded-full"
                   />
                 ) : (
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-sm text-white">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pata text-sm text-white">
                     {user.name?.[0]?.toUpperCase() ?? "U"}
                   </span>
                 )}
