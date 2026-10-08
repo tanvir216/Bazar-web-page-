@@ -2,13 +2,21 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 
-// Cloudflare Workers e ek request er connection onno request e reuse kora jay na,
-// tai prottek request e notun client/auth toiri hoy (kono global cache nai).
+// Vercel-এ একই ইনস্ট্যান্সে কানেকশন রিইউজ করার জন্য গ্লোবাল ক্যাশ
+const globalForMongo = globalThis as unknown as { _mongoClient?: MongoClient };
+
+function getClient(uri: string) {
+  if (!globalForMongo._mongoClient) {
+    globalForMongo._mongoClient = new MongoClient(uri);
+  }
+  return globalForMongo._mongoClient;
+}
+
 export function getAuth() {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("MONGODB_URI missing");
 
-  const client = new MongoClient(uri);
+  const client = getClient(uri);
   const siteUrl = process.env.BETTER_AUTH_URL || "http://localhost:3000";
 
   return betterAuth({
@@ -17,8 +25,8 @@ export function getAuth() {
     trustedOrigins: [siteUrl, process.env.NEXT_PUBLIC_APP_URL].filter(
       Boolean,
     ) as string[],
-    database: mongodbAdapter(client.db()),
-   emailAndPassword: { enabled: true, autoSignIn: true },
+    database: mongodbAdapter(client.db("bazardor")),
+    emailAndPassword: { enabled: true, autoSignIn: true },
     account: {
       accountLinking: { enabled: true, trustedProviders: ["google"] },
     },
