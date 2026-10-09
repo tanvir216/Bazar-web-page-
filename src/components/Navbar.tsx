@@ -29,7 +29,7 @@ export default function Navbar() {
     }`;
 
   return (
-    <nav className="border-b border-line bg-surface">
+    <nav className="sticky top-0 z-50 border-b border-line bg-surface">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
           <span
