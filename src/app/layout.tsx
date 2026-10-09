@@ -35,7 +35,7 @@ export default function RootLayout({
         className={`${hind.variable} ${baloo.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <Providers />
-        <header>
+        <header className="sticky top-0 z-50">
           <Navbar />
           <Ticker />
         </header>
