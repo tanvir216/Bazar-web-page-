@@ -7,6 +7,7 @@ import { authClient } from "@/lib/auth-client";
 import SocialButtons from "@/components/SocialButtons";
 import AuthShell from "@/components/AuthShell";
 import Field from "@/components/Field";
+import PasswordInput from "@/components/PasswordInput";
 import OrDivider from "@/components/OrDivider";
 
 function SignInForm() {
@@ -49,9 +50,8 @@ function SignInForm() {
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
         />
-        <Field
+        <PasswordInput
           label="পাসওয়ার্ড"
-          type="password"
           placeholder="কমপক্ষে ৮ অক্ষর"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
