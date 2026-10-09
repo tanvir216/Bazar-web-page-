@@ -29,3 +29,9 @@ export function bnDate(d = new Date()) {
     year: "numeric",
   }).format(d);
 }
+
+export const formatPriceUnit = (n: number, unitShort: string) =>
+  `${toBn(n)} টাকা${unitShort ? `/${unitShort}` : ""}`;
+
+export const fmtAmt = (n: number) =>
+  Number.isInteger(n) ? fmt(0, 0).format(n) : fmt(2, 2).format(n);

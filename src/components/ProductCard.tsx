@@ -1,39 +1,34 @@
 import Link from "next/link";
 import type { Product } from "@/lib/normalize";
-import { toBn } from "@/lib/bn";
+import { formatPrice } from "@/lib/bn";
 import ChangeBadge from "./ChangeBadge";
 
 export default function ProductCard({ p }: { p: Product }) {
-  // উপরের পাতলা রেখা দেখায় দাম কোন দিকে গেছে
-  const bar = p.change > 0 ? "bg-rise" : p.change < 0 ? "bg-fall" : "bg-line";
   return (
     <Link
       href={`/product/${encodeURIComponent(p.slug)}`}
-      className="group relative block overflow-hidden rounded-xl border border-line bg-white p-4 pt-5 transition hover:border-pata hover:shadow-[4px_4px_0_#0A0A0A]"
+      className="block rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-leaf"
     >
-      <span className={`absolute inset-x-0 top-0 h-1 ${bar}`} aria-hidden />
       <div className="flex items-center gap-3">
         <span
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-paper text-2xl"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-paper text-2xl"
           aria-hidden
         >
           {p.emoji}
         </span>
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-semibold leading-tight text-pata">
+          <h3 className="truncate text-base font-semibold leading-6">
             {p.name}
           </h3>
-          <p className="text-sm text-ink/60">{p.unit}</p>
+          <p className="text-xs text-ink/60">{p.unit}</p>
         </div>
       </div>
-      <div>
-        <p className="text-xs text-ink/55">আজকের দাম</p>
-        <p className="font-display text-3xl font-bold leading-none text-pata">
-          {toBn(p.price)}
-          <span className="ml-1 font-sans text-sm font-medium text-ink/60">
-            টাকা
-          </span>
-        </p>
+      <div className="mt-3 flex items-center justify-between gap-2">
+        <div>
+          <p className="text-xs text-ink/70">আজকের দাম</p>
+          <p className="text-xl font-bold leading-7">{formatPrice(p.price)}</p>
+        </div>
+        <ChangeBadge change={p.change} />
       </div>
     </Link>
   );

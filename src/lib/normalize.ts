@@ -14,7 +14,9 @@ export type Product = {
   name: string;
   emoji: string;
   unit: string;
+  unitShort: string;
   price: number;
+  yesterday: number;
   change: number;
   category: string;
   categoryLabel: string;
@@ -222,7 +224,11 @@ export function normalizeProduct(raw: any, i = 0): Product {
     get(raw, ["unit", "unitLabel", "unit_label", "per"]) ?? "",
   ).trim();
   unit = UNITS[unit.toLowerCase()] ?? unit;
+  const unitShort = unit.replace(/^প্রতি\s*/, "");
   if (unit && !/^প্রতি/.test(unit)) unit = `প্রতি ${unit}`;
+  const yest = num(
+    get(raw, ["yesterday", "previousPrice", "prevPrice", "yesterdayPrice"]),
+  );
 
   const tagsRaw = get(raw, ["tags", "categories"]);
   const tags: string[] = Array.isArray(tagsRaw)
@@ -255,8 +261,10 @@ export function normalizeProduct(raw: any, i = 0): Product {
       get(raw, ["nameBn", "name", "name_bn", "title", "bnName"]) ?? "পণ্য",
     ),
     emoji: String(get(raw, ["emoji", "image", "icon", "categoryIcon"]) ?? "🛒"),
-    unit,
+        unit,
+    unitShort,
     price: p,
+    yesterday: yest,
     change: changeOf(raw, p),
     category,
     categoryLabel,

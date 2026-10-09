@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import AuthShell from "@/components/AuthShell";
+import Field from "@/components/Field";
 
 export default function UpdateProfilePage() {
   const router = useRouter();
@@ -27,19 +29,22 @@ export default function UpdateProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-md px-4 py-12">
-      <div className="rounded-xl border border-line bg-white p-6 sm:p-8">
-        <h1 className="text-2xl font-bold">তথ্য আপডেট</h1>
-        <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
-          <label className="form-control">
-            <span className="label-text mb-1">নাম</span>
-            <input className="input input-bordered" value={name} onChange={(e) => setName(e.target.value)} />
-          </label>
-          <button className="btn btn-primary w-full" disabled={busy}>
-            {busy ? <span className="loading loading-spinner loading-sm" /> : "তথ্য আপডেট করুন"}
-          </button>
-        </form>
-      </div>
-    </div>
+    <AuthShell title="তথ্য আপডেট" subtitle="আপনার নাম বদলে সেভ করুন।">
+      <form onSubmit={onSubmit} className="space-y-4" noValidate>
+        <Field
+          label="নাম"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="যেমন: রহিম উদ্দিন"
+        />
+        <button className="btn btn-primary w-full" disabled={busy}>
+          {busy ? (
+            <span className="loading loading-spinner loading-sm" />
+          ) : (
+            "তথ্য আপডেট করুন"
+          )}
+        </button>
+      </form>
+    </AuthShell>
   );
 }

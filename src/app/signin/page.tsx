@@ -5,13 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import SocialButtons from "@/components/SocialButtons";
-import PasswordInput from "@/components/PasswordInput";
-import { safeCallback } from "@/lib/callback";
+import AuthShell from "@/components/AuthShell";
+import Field from "@/components/Field";
+import OrDivider from "@/components/OrDivider";
 
 function SignInForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const callbackUrl = safeCallback(params.get("callbackUrl"));
+  const callbackUrl = params.get("callbackUrl") || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -35,28 +36,27 @@ function SignInForm() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-xl border border-line bg-white p-6 sm:p-8">
-      <h1 className="text-2xl font-bold">সাইন ইন</h1>
-      <p className="mt-1 text-sm text-ink/65">আপনার অ্যাকাউন্টে প্রবেশ করুন।</p>
-      <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
-        <label className="form-control">
-          <span className="label-text mb-1">ইমেইল</span>
-          <input
-            type="email"
-            className="input input-bordered"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-          />
-        </label>
-        <label className="form-control">
-          <span className="label-text mb-1">পাসওয়ার্ড</span>
-          <PasswordInput
-            value={password}
-            onChange={setPassword}
-            autoComplete="current-password"
-          />
-        </label>
+    <AuthShell
+      title="সাইন ইন"
+      subtitle="বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।"
+    >
+      <form onSubmit={onSubmit} className="space-y-4" noValidate>
+        <Field
+          label="ইমেইল"
+          type="email"
+          placeholder="you@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+        <Field
+          label="পাসওয়ার্ড"
+          type="password"
+          placeholder="কমপক্ষে ৮ অক্ষর"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+        />
         <button className="btn btn-primary w-full" disabled={busy}>
           {busy ? (
             <span className="loading loading-spinner loading-sm" />
@@ -65,27 +65,27 @@ function SignInForm() {
           )}
         </button>
       </form>
-      <div className="divider text-sm">অথবা</div>
+      <OrDivider />
       <SocialButtons callbackURL={callbackUrl} />
-      <p className="mt-6 text-center text-sm">
+      <p className="mt-4 text-sm text-ink/70">
         অ্যাকাউন্ট নেই?{" "}
-             <Link
-          href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+        <Link
+          href="/signup"
           className="font-semibold text-leaf hover:underline"
         >
           সাইন আপ করুন
         </Link>
       </p>
-    </div>
+    </AuthShell>
   );
 }
 
 export default function SignInPage() {
   return (
-    <div className="px-4 py-12">
-      <Suspense fallback={<div className="skeleton mx-auto h-96 max-w-md" />}>
-        <SignInForm />
-      </Suspense>
-    </div>
+    <Suspense
+      fallback={<div className="skeleton mx-auto my-10 h-96 max-w-md" />}
+    >
+      <SignInForm />
+    </Suspense>
   );
 }

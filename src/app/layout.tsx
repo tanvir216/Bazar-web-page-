@@ -24,12 +24,18 @@ export const metadata: Metadata = {
   icons: { icon: "/logo-icon.png" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="bn" data-theme="bazar">
-      <body className={`${hind.variable} ${baloo.variable} font-sans antialiased min-h-screen flex flex-col`}>
+      <body
+        className={`${hind.variable} ${baloo.variable} font-sans antialiased min-h-screen flex flex-col`}
+      >
         <Providers />
-        <header className="sticky top-0 z-40 bg-white border-b border-line">
+        <header>
           <Navbar />
           <Ticker />
         </header>

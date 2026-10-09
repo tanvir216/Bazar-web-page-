@@ -1,32 +1,35 @@
+"use client";
 import Image from "next/image";
+import { useBnDate } from "@/lib/useBnDate";
 
 export default function Hero() {
+  const date = useBnDate();
   return (
-       <section className="border-b-2 border-pata bg-white">
-      <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2 md:py-16">
-        <div>
-          <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-balance text-pata sm:text-5xl lg:text-6xl">
-            আজকের বাজারে কোনটার কত দাম?
+    <section className="rounded-3xl border border-line bg-surface p-6 sm:p-10">
+      <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+        <div className="flex flex-col items-start gap-2">
+          <span className="inline-block min-h-7 rounded-full bg-leaf/10 px-3 py-1 text-sm font-medium text-leaf">
+            {date || "\u00a0"}
+          </span>
+          <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
+            আজকের বাজারের দাম এক নজরে
           </h1>
-          <p className="mt-2 max-w-md text-base text-pata/80 sm:text-lg">
-            চাল, ডাল, তেল, সবজি, মাছ আর মাংস — গতকালের চেয়ে কোনটা বাড়ল, কোনটা
-            কমল, এক নজরে দেখুন।
+          <p className="mt-1 max-w-xl text-ink/80">
+            চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক
+            বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
           </p>
-          <a href="#সব-পণ্য" className="btn btn-primary mt-7 px-7">
-            সব পণ্যের দাম দেখুন
+          <a href="#সব-পণ্য" className="btn btn-primary mt-3">
+            সব পণ্য দেখুন
           </a>
-          <p className="mt-4 text-sm text-pata/70">
-            কোন বাজারে কত দাম, তা দেখতে সাইন ইন করুন।
-          </p>
         </div>
         <div className="flex justify-center md:justify-end">
           <Image
             src="/bazar-hero.png"
             alt="ফলের ঝুড়ি"
-            width={420}
-            height={351}
+            width={315}
+            height={263}
             priority
-            className="h-auto w-full max-w-xs sm:max-w-sm md:max-w-md"
+            className="h-auto w-full max-w-[315px]"
           />
         </div>
       </div>

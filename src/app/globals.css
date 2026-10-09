@@ -6,11 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: #ffffff;
-  color: #0a0a0a;
+  background: #f0f5f0;
+  color: #1d271f;
 }
 :focus-visible {
-  outline: 2px solid #0a0a0a;
+  outline: 2px solid #05893e;
   outline-offset: 2px;
 }
 
@@ -37,25 +37,32 @@ body {
   display: none;
 }
 
-/* হিরো বোর্ডের সারিগুলো একবার করে ধাপে ধাপে ভেসে ওঠে */
-@keyframes row-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+/* Buttons and inputs: same sizes as the Figma (40px high, 8px radius) */
+.btn {
+  min-height: 2.5rem;
+  height: 2.5rem;
+  font-weight: 500;
 }
-.row-in {
-  animation: row-in 0.45s ease-out both;
+.btn-sm {
+  min-height: 2rem;
+  height: 2rem;
+}
+.input {
+  height: 2.5rem;
+  min-height: 2.5rem;
+}
+.input,
+.select {
+  background: #fafcfa;
+  border-color: rgb(29 39 31 / 0.2);
+}
+.input:focus,
+.select:focus {
+  border-color: #05893e;
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .row-in {
-    animation: none;
-  }
   html {
     scroll-behavior: auto;
   }

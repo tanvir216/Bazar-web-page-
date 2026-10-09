@@ -1,6 +1,6 @@
 export function CardSkeleton() {
   return (
-    <div className="rounded-xl border border-line bg-white p-4">
+    <div className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex gap-3">
         <div className="skeleton h-14 w-14 rounded-lg" />
         <div className="flex-1 space-y-2 pt-1">
@@ -21,7 +21,7 @@ export function GridSkeleton({ count = 8 }: { count?: number }) {
     <div
       role="status"
       aria-label="লোড হচ্ছে…"
-      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
     >
       {Array.from({ length: count }).map((_, i) => (
         <CardSkeleton key={i} />

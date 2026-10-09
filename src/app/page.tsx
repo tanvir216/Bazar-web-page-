@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
 import Hero from "@/components/Hero";
-import ChangeBadge from "@/components/ChangeBadge";
 import ProductCard from "@/components/ProductCard";
 import { GridSkeleton } from "@/components/Skeletons";
 import ErrorState from "@/components/ErrorState";
@@ -9,62 +7,33 @@ import { useProducts } from "@/lib/hooks";
 import { toBn } from "@/lib/bn";
 import type { Product } from "@/lib/normalize";
 
+const gridCls = "grid gap-4 sm:grid-cols-2 lg:grid-cols-3";
+
 function Movers({
-  title,
-  subtitle,
-  items,
+  arrow,
   tone,
+  title,
+  items,
 }: {
+  arrow: string;
+  tone: string;
   title: string;
-  subtitle: string;
   items: Product[];
-  tone: "rise" | "fall";
 }) {
   if (!items.length) return null;
-  const bar = tone === "rise" ? "bg-rise" : "bg-fall";
-  const arrow = tone === "rise" ? "▲" : "▼";
-  const arrowColor = tone === "rise" ? "text-rise" : "text-fall";
   return (
-    <section>
-      <div className="flex items-stretch gap-3">
-        <span className={`w-1.5 rounded-full ${bar}`} aria-hidden />
-        <div>
-          <h2 className="font-display text-2xl font-bold text-pata">
-            {title} <span className={arrowColor}>{arrow}</span>
-          </h2>
-          <p className="text-sm text-ink/65">{subtitle}</p>
-        </div>
-      </div>
-      <ul className="mt-4 divide-y divide-dashed divide-line overflow-hidden rounded-xl border border-line bg-white">
+    <section className="space-y-3">
+      <h2 className="flex items-center gap-2 text-xl font-bold">
+        <span className={`text-base ${tone}`} aria-hidden>
+          {arrow}
+        </span>
+        {title}
+      </h2>
+      <div className={gridCls}>
         {items.map((p) => (
-          <li key={p.id}>
-            <Link
-              href={`/product/${encodeURIComponent(p.slug)}`}
-              className="flex items-center gap-3 px-4 py-3 transition hover:bg-paper"
-            >
-              <span
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper text-xl"
-                aria-hidden
-              >
-                {p.emoji}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate font-semibold text-pata">
-                  {p.name}
-                </span>
-                <span className="block text-xs text-ink/55">{p.unit}</span>
-              </span>
-              <span className="font-display text-xl font-bold text-pata">
-                {toBn(p.price)}
-                <span className="ml-0.5 font-sans text-xs font-medium text-ink/55">
-                  টাকা
-                </span>
-              </span>
-              <ChangeBadge change={p.change} />
-            </Link>
-          </li>
+          <ProductCard key={p.id} p={p} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
@@ -81,54 +50,37 @@ export default function Home() {
     .slice(0, 6);
 
   return (
-    <>
+    <div className="mx-auto max-w-6xl space-y-10 px-4 py-6">
       <Hero />
-      <div className="mx-auto max-w-6xl px-4">
-        {loading && (
-          <div className="pt-12">
-            <GridSkeleton count={8} />
-          </div>
-        )}
-        {error && !loading && (
-          <div className="pt-12">
-            <ErrorState retry={retry} />
-          </div>
-        )}
-        {data && (
-          <>
-            <div className="grid gap-8 pt-12 md:grid-cols-2">
-              <Movers
-                tone="rise"
-                title="আজ দাম বেড়েছে"
-                subtitle="গতকালের চেয়ে সবচেয়ে বেশি বেড়েছে যেগুলোর"
-                items={risers}
-              />
-              <Movers
-                tone="fall"
-                title="আজ দাম কমেছে"
-                subtitle="গতকালের চেয়ে সবচেয়ে বেশি কমেছে যেগুলোর"
-                items={fallers}
-              />
+      {loading && <GridSkeleton count={6} />}
+      {error && !loading && <ErrorState retry={retry} />}
+      {data && (
+        <>
+          <Movers
+            arrow="▲"
+            tone="text-rise"
+            title="আজ দাম বেড়েছে"
+            items={risers}
+          />
+          <Movers
+            arrow="▼"
+            tone="text-fall"
+            title="আজ দাম কমেছে"
+            items={fallers}
+          />
+          <section id="সব-পণ্য" className="scroll-mt-6 space-y-3">
+            <h2 className="text-xl font-bold">সব পণ্য</h2>
+            <p className="text-sm text-ink/70">
+              মোট {toBn(data.length)}টি পণ্য দেখানো হচ্ছে
+            </p>
+            <div className={gridCls}>
+              {data.map((p) => (
+                <ProductCard key={p.id} p={p} />
+              ))}
             </div>
-
-            <section id="সব-পণ্য" className="scroll-mt-40 pt-14">
-              <div className="flex items-baseline justify-between gap-3 border-b-2 border-pata pb-2">
-                <h2 className="font-display text-3xl font-bold text-pata">
-                  সব পণ্য
-                </h2>
-                <p className="text-sm text-ink/65">
-                  সব ক্যাটাগরির পণ্যের আজকের দাম
-                </p>
-              </div>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {data.map((p) => (
-                  <ProductCard key={p.id} p={p} />
-                ))}
-              </div>
-            </section>
-          </>
-        )}
-      </div>
-    </>
+          </section>
+        </>
+      )}
+    </div>
   );
 }

@@ -6,8 +6,13 @@ import EmptyState from "@/components/EmptyState";
 import ErrorState from "@/components/ErrorState";
 import SortSelect, { SortKey } from "@/components/SortSelect";
 import { useCategories, useProducts } from "@/lib/hooks";
+import { toBn } from "@/lib/bn";
 
-export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+export default function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const slug = decodeURIComponent(use(params).slug);
   const { data, loading, error, retry } = useProducts(slug);
   const { data: cats } = useCategories();
@@ -15,16 +20,17 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
 
   const cat = cats?.find((c) => c.slug === slug);
   const items = useMemo(() => {
-    // Keep only products that really belong to the category (API filter may be loose)
-    const list = [...(data ?? [])].filter((p) => !p.category || p.category === slug);
-    // Prices are parsed to numbers first, so Bengali numerals sort numerically, not as text.
+    const list = [...(data ?? [])].filter(
+      (p) => !p.category || p.category === slug,
+    );
+    // Prices are numbers (Bengali digits already converted), so this sorts by value, not by text.
     if (sort === "asc") list.sort((a, b) => a.price - b.price);
     if (sort === "desc") list.sort((a, b) => b.price - a.price);
     return list;
   }, [data, sort, slug]);
 
   const title = cat?.name || data?.[0]?.categoryLabel || slug;
-  const icon = cat?.icon || "";
+  const icon = cat?.icon || data?.[0]?.emoji || "";
 
   if (!loading && !error && (!data || items.length === 0)) {
     return (
@@ -36,21 +42,46 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="flex items-center gap-3 text-3xl font-bold">
-          {icon && <span aria-hidden>{icon}</span>}
-          {loading && !cat ? <span className="skeleton h-9 w-40" /> : title}
-        </h1>
-        <SortSelect value={sort} onChange={setSort} />
+    <div className="mx-auto max-w-6xl space-y-6 px-4 py-6">
+      <div className="rounded-2xl border border-line bg-surface p-5">
+        <div className="flex items-center gap-3">
+          {icon && (
+            <span className="text-4xl" aria-hidden>
+              {icon}
+            </span>
+          )}
+          <div>
+            <h1 className="text-2xl font-bold leading-8">
+              {loading && !cat ? (
+                <span className="skeleton inline-block h-7 w-32" />
+              ) : (
+                title
+              )}
+            </h1>
+            <p className="text-sm text-ink/70">
+              {loading
+                ? "লোড হচ্ছে…"
+                : `${toBn(items.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`}
+            </p>
+          </div>
+        </div>
       </div>
-      <div className="mt-6">
+
+      <div className="space-y-4">
+        <div className="flex justify-end rounded-2xl border border-line bg-surface p-4">
+          <SortSelect value={sort} onChange={setSort} />
+        </div>
+        {!loading && !error && (
+          <p className="text-sm text-ink/70">
+            মোট {toBn(items.length)}টি পণ্য দেখানো হচ্ছে
+          </p>
+        )}
         {loading ? (
-          <GridSkeleton count={8} />
+          <GridSkeleton count={6} />
         ) : error ? (
           <ErrorState retry={retry} />
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((p) => (
               <ProductCard key={p.id} p={p} />
             ))}
