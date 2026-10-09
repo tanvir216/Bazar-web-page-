@@ -22,12 +22,16 @@ function Movers({
 }) {
   if (!items.length) return null;
   const bar = tone === "rise" ? "bg-rise" : "bg-fall";
+  const arrow = tone === "rise" ? "▲" : "▼";
+  const arrowColor = tone === "rise" ? "text-rise" : "text-fall";
   return (
     <section>
       <div className="flex items-stretch gap-3">
         <span className={`w-1.5 rounded-full ${bar}`} aria-hidden />
         <div>
-          <h2 className="font-display text-2xl font-bold text-pata">{title}</h2>
+          <h2 className="font-display text-2xl font-bold text-pata">
+            {title} <span className={arrowColor}>{arrow}</span>
+          </h2>
           <p className="text-sm text-ink/65">{subtitle}</p>
         </div>
       </div>
@@ -95,13 +99,13 @@ export default function Home() {
             <div className="grid gap-8 pt-12 md:grid-cols-2">
               <Movers
                 tone="rise"
-                title="আজ দাম বেড়েছে ▲"
+                title="আজ দাম বেড়েছে"
                 subtitle="গতকালের চেয়ে সবচেয়ে বেশি বেড়েছে যেগুলোর"
                 items={risers}
               />
               <Movers
                 tone="fall"
-                title="আজ দাম কমেছে ▼"
+                title="আজ দাম কমেছে"
                 subtitle="গতকালের চেয়ে সবচেয়ে বেশি কমেছে যেগুলোর"
                 items={fallers}
               />
