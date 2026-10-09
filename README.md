@@ -39,7 +39,7 @@ cp .env.example .env.local   # fill in the values
 npm run dev
 ```
 
-Open http://localhost:3000.
+Open https://bazar-web-page.vercel.app/product/dim.
 
 ### Environment variables
 
