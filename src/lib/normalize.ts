@@ -261,7 +261,7 @@ export function normalizeProduct(raw: any, i = 0): Product {
       get(raw, ["nameBn", "name", "name_bn", "title", "bnName"]) ?? "পণ্য",
     ),
     emoji: String(get(raw, ["emoji", "image", "icon", "categoryIcon"]) ?? "🛒"),
-        unit,
+    unit,
     unitShort,
     price: p,
     yesterday: yest,
