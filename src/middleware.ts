@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
-// Optimistic check: redirects visitors without a session cookie.
 export function middleware(request: NextRequest) {
   const session = getSessionCookie(request);
   if (!session) {

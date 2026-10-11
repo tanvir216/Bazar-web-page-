@@ -29,7 +29,6 @@ export type Product = {
 };
 export type Category = { slug: string; name: string; icon: string };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const get = (o: any, keys: string[]) => {
   for (const k of keys) {
     if (o && o[k] !== undefined && o[k] !== null && o[k] !== "") return o[k];
@@ -72,7 +71,6 @@ export function toArray(j: any, extra: string[] = []): any[] {
 }
 
 function changeOf(raw: any, price: number): number {
-  // API shape: change: { dir: "up" | "down" | "flat", pct: 2.1 }
   const c = raw?.change;
   if (c && typeof c === "object") {
     const pct = Math.abs(num(c.pct ?? c.percent ?? 0)) || 0;

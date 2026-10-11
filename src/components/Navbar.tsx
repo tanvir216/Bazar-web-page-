@@ -57,7 +57,6 @@ export default function Navbar() {
                 className="btn btn-ghost btn-sm sm:btn-md gap-2 px-2 sm:px-4"
               >
                 {user.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={user.image}
                     alt=""

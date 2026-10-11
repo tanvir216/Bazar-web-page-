@@ -1,6 +1,5 @@
 const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
 
-/** Parse numbers written with Bengali or English digits ("১,৮৫০ টাকা" -> 1850). */
 export function num(v: unknown): number {
   if (typeof v === "number") return v;
   if (typeof v !== "string") return NaN;

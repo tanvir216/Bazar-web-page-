@@ -37,7 +37,6 @@ body {
   display: none;
 }
 
-/* Buttons and inputs: same sizes as the Figma (40px high, 8px radius) */
 .btn {
   min-height: 2.5rem;
   height: 2.5rem;

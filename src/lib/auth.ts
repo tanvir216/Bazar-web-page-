@@ -4,7 +4,6 @@ import { MongoClient } from "mongodb";
 
 const DB_NAME = "bazardor";
 
-// Vercel-এ একই ইনস্ট্যান্সে MongoDB কানেকশন রিইউজ করার জন্য গ্লোবাল ক্যাশ
 const globalForMongo = globalThis as unknown as { _mongoClient?: MongoClient };
 
 function getClient(uri: string) {

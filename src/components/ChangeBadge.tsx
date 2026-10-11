@@ -1,9 +1,5 @@
 import { formatPct } from "@/lib/bn";
 
-/*
- * Figma colours: price up = red, price down = green, flat = gray.
- * If your examiner wants "green up / red down", swap the two classes below.
- */
 const UP = "text-rise";
 const DOWN = "text-fall";
 

@@ -34,7 +34,6 @@ export default function ProfilePage() {
         <>
           <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-line bg-surface p-6">
             {user.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={user.image}
                 alt=""

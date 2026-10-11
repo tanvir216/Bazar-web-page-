@@ -9,7 +9,6 @@ import { useApi } from "@/lib/useApi";
 import { normalizeProduct, type Product } from "@/lib/normalize";
 import { fmtAmt, toBn } from "@/lib/bn";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const unwrap = (j: any) =>
   j && typeof j === "object" && j.data && !Array.isArray(j.data) ? j.data : j;
 
@@ -57,7 +56,7 @@ export default function ProductPage({
   const slug = decodeURIComponent(use(params).slug);
   const list = useProducts();
   const base = list.data?.find((x) => x.slug === slug || x.id === slug);
-  // The list may not carry the market rows, so ask for the single product too.
+
   const one = useApi<Product | false>(
     base ? `/products/${base.id}` : null,
     (j) => (j ? normalizeProduct(unwrap(j)) : false),

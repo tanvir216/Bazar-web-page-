@@ -54,7 +54,6 @@ export function useApi<T>(path: string | null, map: (json: unknown) => T) {
     return () => {
       alive = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, tick]);
 
   const retry = useCallback(() => {
